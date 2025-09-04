@@ -1,0 +1,57 @@
+{% extends "base.html" %}
+
+{% block title %}Dashboard - CropAdvise{% endblock %}
+
+{% block content %}
+<section class="dashboard">
+    <h2>Your Prediction History</h2>
+    
+    {% if history %}
+    <div class="history-grid">
+        {% for entry in history %}
+        <div class="history-card">
+            <h3>{{ entry.crop|title }}</h3>
+            <p><strong>Date:</strong> {{ entry.timestamp }}</p>
+            <div class="parameter-grid">
+                <div class="parameter-card">
+                    <h4>N</h4>
+                    <div class="parameter-value">{{ entry.parameters.N }}</div>
+                </div>
+                <div class="parameter-card">
+                    <h4>P</h4>
+                    <div class="parameter-value">{{ entry.parameters.P }}</div>
+                </div>
+                <div class="parameter-card">
+                    <h4>K</h4>
+                    <div class="parameter-value">{{ entry.parameters.K }}</div>
+                </div>
+                <div class="parameter-card">
+                    <h4>Temp</h4>
+                    <div class="parameter-value">{{ entry.parameters.temperature }}°C</div>
+                </div>
+                <div class="parameter-card">
+                    <h4>Humidity</h4>
+                    <div class="parameter-value">{{ entry.parameters.humidity }}%</div>
+                </div>
+                <div class="parameter-card">
+                    <h4>pH</h4>
+                    <div class="parameter-value">{{ entry.parameters.ph }}</div>
+                </div>
+                <div class="parameter-card">
+                    <h4>Rainfall</h4>
+                    <div class="parameter-value">{{ entry.parameters.rainfall }}mm</div>
+                </div>
+            </div>
+        </div>
+        {% endfor %}
+    </div>
+    {% else %}
+    <div class="no-history">
+        <i class="fas fa-history fa-3x"></i>
+        <h3>No prediction history yet</h3>
+        <p>Get your first crop recommendation to see it here!</p>
+        <a href="{{ url_for('recommendation_page') }}" class="cta-button primary">Get Recommendation</a>
+    </div>
+    {% endif %}
+</section>
+{% endblock %}

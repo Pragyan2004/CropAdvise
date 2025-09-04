@@ -1,0 +1,99 @@
+{% extends "base.html" %}
+
+{% block title %}Recommendation Results - CropAdvise{% endblock %}
+
+{% block content %}
+<section class="results">
+    <h2>Crop Recommendation Result</h2>
+    
+    {% if prediction and prediction != "Error" %}
+    <div class="result-card">
+        <div class="success-icon">
+            <i class="fas fa-check-circle"></i>
+        </div>
+        <h3>Recommended Crop:</h3>
+        <div class="crop-result">{{ prediction|title }}</div>
+        <p>Based on your soil and environmental parameters, this crop has the highest potential for successful cultivation.</p>
+        
+        {% if crop_data %}
+        <div class="crop-details">
+            <h4>Growing Conditions:</h4>
+            <div class="details-grid">
+                <div class="detail-item">
+                    <i class="fas fa-calendar"></i>
+                    <strong>Season:</strong> {{ crop_data.season }}
+                </div>
+                <div class="detail-item">
+                    <i class="fas fa-tint"></i>
+                    <strong>Water Needs:</strong> {{ crop_data.water }}
+                </div>
+                <div class="detail-item">
+                    <i class="fas fa-vial"></i>
+                    <strong>pH Range:</strong> {{ crop_data.ph_range }}
+                </div>
+            </div>
+        </div>
+        {% endif %}
+        
+        <div class="parameter-grid">
+            <h4>Your Input Parameters:</h4>
+            <div class="parameter-card">
+                <h4>N</h4>
+                <div class="parameter-value">{{ parameters.N }}</div>
+            </div>
+            <div class="parameter-card">
+                <h4>P</h4>
+                <div class="parameter-value">{{ parameters.P }}</div>
+            </div>
+            <div class="parameter-card">
+                <h4>K</h4>
+                <div class="parameter-value">{{ parameters.K }}</div>
+            </div>
+            <div class="parameter-card">
+                <h4>Temperature</h4>
+                <div class="parameter-value">{{ parameters.temperature }}°C</div>
+            </div>
+            <div class="parameter-card">
+                <h4>Humidity</h4>
+                <div class="parameter-value">{{ parameters.humidity }}%</div>
+            </div>
+            <div class="parameter-card">
+                <h4>pH</h4>
+                <div class="parameter-value">{{ parameters.ph }}</div>
+            </div>
+            <div class="parameter-card">
+                <h4>Rainfall</h4>
+                <div class="parameter-value">{{ parameters.rainfall }}mm</div>
+            </div>
+        </div>
+        
+        {% if top_crops %}
+        <div class="alternative-crops">
+            <h3>Alternative Options</h3>
+            <div class="crop-alternatives">
+                {% for crop in top_crops %}
+                <div class="alternative-crop">
+                    <div class="crop-name">{{ crop.name|title }}</div>
+                    <div class="crop-probability">{{ crop.probability }}% match</div>
+                </div>
+                {% endfor %}
+            </div>
+        </div>
+        {% endif %}
+    </div>
+    
+    <div class="action-buttons">
+        <a href="{{ url_for('recommendation_page') }}" class="back-btn"><i class="fas fa-arrow-left"></i> Make Another Recommendation</a>
+        <a href="{{ url_for('dashboard') }}" class="cta-button primary"><i class="fas fa-history"></i> View History</a>
+    </div>
+    
+    {% else %}
+    <div class="error-result">
+        <i class="fas fa-exclamation-triangle fa-3x"></i>
+        <h3>Error Processing Request</h3>
+        <p>{{ prediction }}</p>
+        <a href="{{ url_for('recommendation_page') }}" class="back-btn"><i class="fas fa-arrow-left"></i> Try Again</a>
+    </div>
+    {% endif %}
+</section>
+{% endblock %}

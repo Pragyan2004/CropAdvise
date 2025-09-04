@@ -1,0 +1,41 @@
+{% extends "base.html" %}
+
+{% block title %}About - CropAdvise{% endblock %}
+
+{% block content %}
+<section class="about">
+    <h2>About CropAdvise</h2>
+    
+    <div class="about-content">
+        <p>CropAdvise is an intelligent crop recommendation system that uses machine learning to help farmers and agricultural professionals make informed decisions about which crops to cultivate based on their specific environmental conditions.</p>
+        
+        <div class="about-image">
+            <img src="{{ url_for('static', filename='images/about-bg.jpg') }}" alt="Agriculture technology">
+        </div>
+        
+        <h3>Our Technology</h3>
+        <p>Our system is powered by a Random Forest Classifier model trained on a comprehensive dataset of crop parameters. The model analyzes seven key factors:</p>
+        <ul>
+            <li><i class="fas fa-atom"></i> Nitrogen (N) content in soil</li>
+            <li><i class="fas fa-atom"></i> Phosphorus (P) content in soil</li>
+            <li><i class="fas fa-atom"></i> Potassium (K) content in soil</li>
+            <li><i class="fas fa-temperature-high"></i> Temperature</li>
+            <li><i class="fas fa-tint"></i> Humidity</li>
+            <li><i class="fas fa-vial"></i> pH value</li>
+            <li><i class="fas fa-cloud-rain"></i> Rainfall</li>
+        </ul>
+        
+        <h3>Our Mission</h3>
+        <p>We aim to support sustainable agriculture by providing data-driven insights that can help optimize crop yields, reduce resource waste, and improve farming efficiency. Our goal is to make advanced agricultural technology accessible to farmers of all scales.</p>
+        
+        <h3>How It Works</h3>
+        <ol>
+            <li>Input your soil and environmental parameters</li>
+            <li>Our AI model analyzes the data against thousands of data points</li>
+            <li>Receive personalized crop recommendations with probability scores</li>
+            <li>Access detailed information about each recommended crop</li>
+            <li>Track your prediction history for future reference</li>
+        </ol>
+    </div>
+</section>
+{% endblock %}
