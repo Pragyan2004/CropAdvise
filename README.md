@@ -1,5 +1,3 @@
-# CropAdvise
-
 # 🌱 CropAdvise - AI-Powered Crop Recommendation System
 
 CropAdvise is an intelligent web application that helps farmers and agricultural professionals make data-driven decisions about crop cultivation using machine learning algorithms.
@@ -28,8 +26,8 @@ CropAdvise is an intelligent web application that helps farmers and agricultural
 
 ### Clone the repository
 
-    git clone https://github.com/yourusername/crop-recommendation-app.git
-    cd crop-recommendation-app
+    https://github.com/Pragyan2004/CropAdvise.git
+    cd CropAdvise.git
 
 # Run the application
 
