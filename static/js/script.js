@@ -264,17 +264,22 @@ function enhanceCards() {
 }
 enhanceCards();
 function setupLoadingButtons() {
-    const submitButtons = document.querySelectorAll('.submit-btn');
+    const forms = document.querySelectorAll('form');
     
-    submitButtons.forEach(button => {
-        button.addEventListener('click', function(e) {
-            const form = this.closest('form');
-            if (form && form.checkValidity()) {
-                this.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Processing...';
-                this.disabled = true;
+    forms.forEach(form => {
+        form.addEventListener('submit', function() {
+            const submitBtn = this.querySelector('.submit-btn');
+            if (submitBtn) {
+                // Use setTimeout to ensure the form submission starts before disabling
+                setTimeout(() => {
+                    submitBtn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Processing...';
+                    submitBtn.style.pointerEvents = 'none';
+                    submitBtn.style.opacity = '0.7';
+                }, 0);
             }
         });
     });
 }
 
 setupLoadingButtons();
+

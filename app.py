@@ -79,6 +79,7 @@ def contact():
 def predict():
     try:
         # Get form data
+        print(f"Received prediction request at {datetime.now()}")
         N = float(request.form['nitrogen'])
         P = float(request.form['phosphorus'])
         K = float(request.form['potassium'])
@@ -91,11 +92,13 @@ def predict():
         validation_errors = validate_inputs(N, P, K, temperature, humidity, ph, rainfall)
         
         if validation_errors:
+            print(f"Validation failed: {len(validation_errors)} errors found")
             return render_template('recommendation.html', 
                                  errors=validation_errors,
                                  form_data=request.form)
         
         # Prepare features for prediction
+        print("Preprocessing features...")
         features = np.array([[N, P, K, temperature, humidity, ph, rainfall]])
         
         # Scale the features
@@ -103,6 +106,7 @@ def predict():
         features_standard = standard_scaler.transform(features_minmax)
         
         # Make prediction
+        print("Running model prediction...")
         prediction = model.predict(features_standard)
         crop_id = prediction[0]
         crop_data = crop_info.get(crop_id, {'name': 'Unknown Crop'})
@@ -111,7 +115,10 @@ def predict():
         probabilities = model.predict_proba(features_standard)[0]
         top_crops = get_top_crops(probabilities, crop_info, 3)
         
+        print(f"Prediction complete. Recommended: {crop_data['name']}")
+        
         # Save to session history
+
         history_entry = {
             'timestamp': datetime.now().strftime('%Y-%m-%d %H:%M'),
             'crop': crop_data['name'],
